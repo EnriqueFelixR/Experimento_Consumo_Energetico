@@ -9,12 +9,27 @@
 // ------------------------------------------------------------
 const TEXTOS = {
   titulo: "Estudio de consumo energético en el hogar",
-  institucion: "Instituto Tecnológico de Sonora (ITSON) — Maestría en Diseño de Sistemas Interactivos",
-  consentimiento: `Estás invitado(a) a participar en un estudio sobre percepción del consumo
-    de energía eléctrica en el hogar. Tu participación consiste en recrear tu rutina diaria en un
-    departamento virtual y responder algunas preguntas. La sesión dura entre 15 y 25 minutos.
-    Tus respuestas son confidenciales, se usarán únicamente con fines académicos y puedes
-    abandonar el estudio en cualquier momento cerrando esta página.`,
+  institucion: "Instituto Tecnológico de Sonora (ITSON) — Maestría en Ciencias de la Ingeniería, Tópico VI",
+  consentimiento: `Este estudio forma parte de un proyecto de investigación de la <strong>Maestría en
+    Ciencias de la Ingeniería (Tópico VI)</strong> del Instituto Tecnológico de Sonora (ITSON).
+    Su objetivo es conocer el comportamiento y la percepción de las personas respecto a su
+    consumo de energía eléctrica en el hogar, con el fin de generar conocimiento útil para el
+    diseño de estrategias de ahorro energético.
+    <br><br>
+    Tu participación consiste en recrear tu rutina diaria de uso de energía eléctrica dentro de
+    un departamento virtual, y responder algunas preguntas sobre tu percepción de gasto antes y
+    después de recibir información sobre tu consumo estimado. La sesión se realiza de una sola
+    vez, sin actividades adicionales, y dura aproximadamente entre 15 y 25 minutos.
+    <br><br>
+    Toda la información que proporciones —tus respuestas, la rutina que registres y los datos
+    generales que compartas— es <strong>estrictamente confidencial</strong> y se usará
+    <strong>únicamente con fines académicos</strong>, como parte de un trabajo de investigación
+    de maestría. Los resultados se analizarán y reportarán de forma grupal y anónima; en ningún
+    caso se publicará tu nombre ni información que permita identificarte de manera individual.
+    <br><br>
+    Tu participación es <strong>completamente voluntaria</strong>: puedes dejar de participar en
+    cualquier momento, sin ninguna consecuencia, simplemente cerrando esta página. No existen
+    riesgos asociados con tu participación.`,
   instrucciones1: `Piensa en el día de <strong>ayer</strong>. Vas a recrear cómo usaste la
     energía eléctrica ese día en un departamento virtual. El día está dividido en 4 fases:
     <strong>mañana, tarde, noche y sueño</strong>. En cada fase, prende con los interruptores
@@ -658,8 +673,36 @@ function rFeedback(numJuego) {
 // Pantalla final: agradecimiento y envío de datos
 // ------------------------------------------------------------
 function rFinal() {
+  // Debriefing: los grupos B/C recibieron cifras alteradas en su
+  // retroalimentación sin saberlo. Aquí, al terminar su sesión, se les
+  // revela la manipulación y se les da su dato real, como exige la
+  // ética de investigación cuando se usa engaño.
+  const factor = CONFIG.GRUPOS[state.grupo].factor;
+  const r = state.resultados;
+  const debriefingHtml = factor !== 1 ? `
+    <div class="tarjeta debriefing">
+      <h2>Antes de que te vayas — una aclaración importante</h2>
+      <p>Como parte del diseño de este estudio, las cifras de gasto que viste en tu
+        retroalimentación fueron <strong>modificadas intencionalmente</strong>: se te mostró un
+        <strong>${Math.round(Math.abs(factor - 1) * 100)}% ${factor > 1 ? "más alto" : "más bajo"}</strong>
+        de lo que en realidad gastarías, sin decírtelo en ese momento.</p>
+      <p>Esto se hizo para poder comparar cómo cambia el comportamiento de las personas cuando
+        reciben información distinta sobre su consumo, incluso si esa información no es exacta.
+        Es una técnica común y aceptada en estudios de comportamiento, y no representa ningún
+        riesgo para ti.</p>
+      <p>Estas son tus cifras <strong>reales</strong>, sin modificar:</p>
+      <div class="comparacion">
+        ${r.real1 ? `<div class="caja"><div class="num">${fmtPesos(r.real1.costoMes)}</div><div class="txt">Juego 1 — se te mostró ${fmtPesos(r.mostrado1.costoMes)}</div></div>` : ""}
+        ${r.real2 ? `<div class="caja"><div class="num">${fmtPesos(r.real2.costoMes)}</div><div class="txt">Juego 2 — se te mostró ${fmtPesos(r.mostrado2.costoMes)}</div></div>` : ""}
+      </div>
+      <p>Gracias por tu comprensión y por tu participación. Si tienes dudas sobre esta parte del
+        estudio, puedes preguntarle directamente al equipo de investigación.</p>
+    </div>
+  ` : "";
+
   const d = nodo(`
     <h1>¡Terminaste! 🎉</h1>
+    ${debriefingHtml}
     <div class="tarjeta">
       <p>${TEXTOS.cierre}</p>
       <p class="estado-envio" id="f-estado">Enviando tus respuestas…</p>
