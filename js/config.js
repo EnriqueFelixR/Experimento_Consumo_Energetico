@@ -28,18 +28,18 @@ const CONFIG = {
   // ----------------------------------------------------------
   // Tarifa CFE 1F (verano, zona con clima cálido extremo — Sonora).
   // Precios por kWh en escalones de consumo MENSUAL, en pesos MXN.
-  // AJUSTA estos valores con un recibo real de CFE antes del estudio:
-  // los escalones y precios cambian cada año y por temporada.
+  // Tomados de un recibo real, sección "2.1 Temporada de verano"
+  // (revisar de nuevo si cambia el año/temporada de facturación).
   // ----------------------------------------------------------
   TARIFA: {
     nombre: "CFE 1F (temporada de verano)",
     escalones: [
-      { hastaKwh: 300,      precio: 0.997 },  // básico
-      { hastaKwh: 900,      precio: 1.166 },  // intermedio bajo
-      { hastaKwh: 2500,     precio: 1.859 },  // intermedio alto
-      { hastaKwh: Infinity, precio: 3.099 },  // excedente
+      { hastaKwh: 300,      precio: 0.839 },  // básico: primeros 300 kWh
+      { hastaKwh: 1200,     precio: 1.039 },  // intermedio bajo: siguientes 900 kWh (300+900)
+      { hastaKwh: 2500,     precio: 2.526 },  // intermedio alto: siguientes 1300 kWh (1200+1300)
+      { hastaKwh: Infinity, precio: 3.992 },  // excedente: cada kWh adicional
     ],
-    cargoFijo: 0, // pesos/mes; déjalo en 0 si solo interesa el consumo
+    cargoFijo: 0, // pesos/mes; el recibo no mostró cargo fijo aparte
   },
 
   // ----------------------------------------------------------
@@ -93,7 +93,7 @@ const CONFIG = {
     { id: "luzSala",    nombre: "Luces (sala)",       cuarto: "sala",     tipo: "horas",   watts: 30,   icono: "💡" },
 
     { id: "refri",      nombre: "Refrigerador",       cuarto: "cocina",   tipo: "siempre", kwhDia: 1.5, icono: "🧊" },
-    { id: "microondas", nombre: "Microondas",         cuarto: "cocina",   tipo: "minutos", watts: 1200, icono: "🍲", maxMinutos: 60 },
+    { id: "microondas", nombre: "Microondas, air fryer o calentador de agua", cuarto: "cocina", tipo: "minutos", watts: 1200, icono: "🍲", maxMinutos: 60 },
     { id: "luzCocina",  nombre: "Luces (cocina)",     cuarto: "cocina",   tipo: "horas",   watts: 20,   icono: "💡" },
 
     { id: "luzBano",    nombre: "Luces (baño)",       cuarto: "bano",     tipo: "horas",   watts: 10,   icono: "💡" },
