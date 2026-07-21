@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudio de consumo energético en el hogar</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="contenedor">
+
+    <div class="progreso">
+      <div class="pista"><div class="relleno" id="progreso-relleno" style="width:0%"></div></div>
+      <div class="etiqueta" id="progreso-etiqueta"></div>
+    </div>
+
+    <!-- Todas las pantallas se generan desde js/app.js dentro de este nodo -->
+    <main id="app"></main>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
