@@ -204,6 +204,11 @@ function rInstrucciones(numJuego) {
     <h1>${titulo}</h1>
     <div class="tarjeta">
       <p>${texto}</p>
+      <div class="aviso aviso-fuerte">Este departamento representa <strong>únicamente tu consumo
+        personal</strong>: prende solo los aparatos que usaste (o usarás) tú, no los que haya
+        usado el resto de las personas con las que vives. Al final, cuando te pregunten cuánto
+        crees que pagarías de luz, responde pensando en <strong>tu gasto individual</strong>, no
+        en el recibo total de tu casa.</div>
       <div class="aviso">El <strong>refrigerador</strong> siempre está conectado, no necesitas prenderlo.</div>
       <div class="botonera">
         <button class="btn-primario" id="i-continuar">Entendido, continuar</button>
@@ -446,7 +451,8 @@ function rExamen(claveExamen) {
       <p>Sin hacer cuentas exactas, responde según tu intuición sobre
          ${esSegundo ? "la rutina que acabas de planear" : "la rutina que acabas de recrear"}.</p>
 
-      <label>1. Si todos los días fueran como ese, ¿cuánto crees que pagarías de luz <strong>al mes</strong>, en pesos?</label>
+      <label>1. Si todos los días fueran como ese, ¿cuánto crees que pagarías de luz <strong>al mes</strong>,
+        en pesos? (solo por <strong>tu consumo individual</strong>, no el total de tu casa)</label>
       <input type="number" id="e-pesos" min="0" step="1" inputmode="numeric" placeholder="Ej. 800">
 
       <label>2. Sin contar el aire acondicionado, ¿qué aparato crees que gastó <strong>más energía</strong>?</label>

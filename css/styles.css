@@ -86,6 +86,13 @@ strong { color: var(--tinta); }
   border-radius: 6px;
   padding: 10px 14px;
   font-size: .95rem;
+  margin: 10px 0;
+}
+
+.aviso-fuerte {
+  background: #fff6f0;
+  border-left: 4px solid var(--alerta);
+  font-size: 1rem;
 }
 
 .debriefing {
